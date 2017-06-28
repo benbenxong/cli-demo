@@ -1,4 +1,10 @@
- (ns cli.db
+;;;
+;d:
+;cd D:\coding\java\LeinProjects\cli
+;lein localrepo install D:\downloads\oracle\instantclient_11_2_64\ojdbc6.jar oracle.jdbc/oracledriver "11.2.0.1"
+;;;
+
+(ns cli.db
    (:require [clojure.java.jdbc :as sql]))
 
 (def db {:classname  "oracle.jdbc.OracleDriver"
