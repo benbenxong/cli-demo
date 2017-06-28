@@ -16,7 +16,7 @@
     :assoc-fn (fn [m k _] (update-in m [k] inc))]
    ;; A boolean option defaulting to nil
    ["-h" "--help"]
-   ["-s" "--sql" "sql p1" "sql str"
+   ["-s" "--sql paras" "sql file and parameters"
     :default ""]
    ["-q" "--quiet"
     :id :verbose

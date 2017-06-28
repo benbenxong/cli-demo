@@ -22,3 +22,9 @@
 (time (sql/query db ["select sysdate from dual"]))
 
 (time (sql/query db1 ["select sysdate from dual"]))
+
+(time (sql/query db ["select owner 属主,object_name 对象名称 from all_objects where rownum<?" 4] {:as-arrays? true}))
+
+(time (sql/query db ["SELECT * FROM all_objects WHERE rownum < ?" 50]
+         {:row-fn (fn [_] 1)
+          :result-set-fn (partial reduce +)}))
