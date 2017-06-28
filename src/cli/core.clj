@@ -17,7 +17,12 @@
    ;; A boolean option defaulting to nil
    ["-h" "--help"]
    ["-s" "--sql" "sql p1" "sql str"
-    :default ""]])
+    :default ""]
+   ["-q" "--quiet"
+    :id :verbose
+    :default true
+    :parse-fn not]
+   ])
 
 
 (defn -main [& args]
