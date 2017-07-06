@@ -1,6 +1,7 @@
 (ns cli.core
   (:refer-clojure :exclude [parse-opts])
-  (:require [clojure.tools.cli :refer [parse-opts]])
+  (:require [clojure.tools.cli :refer [parse-opts]]
+            [clojure.string :as str])
   (:gen-class))
 
 (def cli-options
@@ -16,18 +17,23 @@
     :assoc-fn (fn [m k _] (update-in m [k] inc))]
    ;; A boolean option defaulting to nil
    ["-h" "--help"]
-   ["-s" "--sql paras" "sql file and parameters"
-    :default ""]
+   [nil "--sql paras" "sql file and parameters"
+    ]
    ["-q" "--quiet"
     :id :verbose
     :default true
     :parse-fn not]
+   [nil "--sno SNO" "sheet No."]
+   [nil "--sname SName" "sheet name"
+    :default []
+    :assoc-fn (fn [m k v] (update-in m [k] into
+                                     (if (re-find #"[, ]" v)
+                                       (into [] (str/split v #"[, ]"))
+                                       (vector v))))]
    ])
-
 
 (defn -main [& args]
   (println (.toString (parse-opts args cli-options)))
   ;(parse-opts args cli-options)
   )
 
-(println "Cleanlines is next to godliness")
